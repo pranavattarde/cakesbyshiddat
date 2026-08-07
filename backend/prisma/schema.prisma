@@ -1,0 +1,374 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+}
+
+enum EggOption {
+  EGG
+  EGGLESS
+  BOTH
+}
+
+enum CakeStatus {
+  ACTIVE
+  INACTIVE
+  SEASONAL
+  MADE_TO_ORDER
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  CONFIRMED
+  IN_PROGRESS
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum DeliveryType {
+  PICKUP
+  HOME_DELIVERY
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  password     String
+  role         UserRole @default(ADMIN)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model CakeCategory {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  slug         String   @unique
+  description  String   @default("")
+  displayOrder Int      @default(0)
+  active       Boolean  @default(true)
+  coverMediaId String?
+  coverMedia   Media?   @relation("CakeCategoryCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
+  cakes        Cake[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([displayOrder])
+  @@index([active])
+}
+
+model Cake {
+  id               String       @id @default(cuid())
+  categoryId       String
+  category         CakeCategory @relation(fields: [categoryId], references: [id])
+  name             String
+  slug             String       @unique
+  shortDescription String       @default("")
+  description      String
+  featured         Boolean      @default(false)
+  bestSeller       Boolean      @default(false)
+  newArrival       Boolean      @default(false)
+  trending         Boolean      @default(false)
+  eggOption        EggOption    @default(BOTH)
+  status           CakeStatus   @default(ACTIVE)
+  displayOrder     Int          @default(0)
+  seoTitle         String       @default("")
+  seoDescription   String       @default("")
+  coverMediaId     String
+  coverMedia       Media        @relation("CakeCover", fields: [coverMediaId], references: [id])
+  prices           CakePrice[]
+  flavors          CakeFlavor[]
+  gallery          CakeMedia[]
+  inquiries        Inquiry[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@index([categoryId])
+  @@index([status])
+  @@index([featured])
+  @@index([displayOrder])
+}
+
+model Customer {
+  id        String    @id @default(cuid())
+  name      String
+  phone     String    @unique
+  whatsapp  String    @default("")
+  email     String?   @unique
+  inquiries Inquiry[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([name])
+}
+
+model Inquiry {
+  id                String        @id @default(cuid())
+  customerId        String
+  customer          Customer      @relation(fields: [customerId], references: [id])
+  cakeId            String?
+  cake              Cake?         @relation(fields: [cakeId], references: [id], onDelete: SetNull)
+  eventType         String
+  eventDate         DateTime
+  deliveryType      DeliveryType
+  deliveryAddress   String        @default("")
+  deliveryTime      String        @default("")
+  guestCount        Int
+  weight            Decimal       @db.Decimal(10, 2)
+  budget            Decimal       @db.Decimal(10, 2)
+  eggOption         EggOption     @default(BOTH)
+  flavour           String        @default("")
+  message           String        @default("")
+  status            InquiryStatus @default(NEW)
+  priority          Priority      @default(NORMAL)
+  assignedTo        String        @default("")
+  quotationAmount   Decimal?      @db.Decimal(10, 2)
+  adminNotes        String        @default("")
+  inspirationImages InquiryMedia[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([customerId])
+  @@index([cakeId])
+  @@index([status])
+  @@index([priority])
+  @@index([eventDate])
+  @@index([createdAt])
+}
+
+model InquiryMedia {
+  id           String   @id @default(cuid())
+  inquiryId    String
+  inquiry      Inquiry  @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  mediaId      String
+  media        Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  displayOrder Int      @default(0)
+
+  @@unique([inquiryId, mediaId])
+  @@index([mediaId])
+  @@index([inquiryId, displayOrder])
+}
+
+model CakePrice {
+  id           String   @id @default(cuid())
+  cakeId       String
+  cake         Cake     @relation(fields: [cakeId], references: [id], onDelete: Cascade)
+  weight       String
+  price        Decimal  @db.Decimal(10, 2)
+  displayOrder Int      @default(0)
+
+  @@index([cakeId])
+  @@index([cakeId, displayOrder])
+}
+
+model CakeFlavor {
+  id           String   @id @default(cuid())
+  cakeId       String
+  cake         Cake     @relation(fields: [cakeId], references: [id], onDelete: Cascade)
+  name         String
+  displayOrder Int      @default(0)
+
+  @@index([cakeId])
+  @@index([cakeId, displayOrder])
+}
+
+model CakeMedia {
+  cakeId       String
+  mediaId      String
+  cake         Cake     @relation(fields: [cakeId], references: [id], onDelete: Cascade)
+  media        Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  displayOrder Int      @default(0)
+
+  @@id([cakeId, mediaId])
+  @@index([mediaId])
+  @@index([cakeId, displayOrder])
+}
+
+model EventCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  events    Event[]
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  featured    Boolean  @default(false)
+  coverImage  String
+  categoryId  String
+  category    EventCategory @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GalleryCategory {
+  id      String @id @default(cuid())
+  name    String @unique
+  images  GalleryImage[]
+}
+
+model GalleryImage {
+  id          String @id @default(cuid())
+  title       String
+  image       String
+  featured    Boolean @default(false)
+  categoryId  String
+  category    GalleryCategory @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  review    String
+  rating    Int
+  image      String?
+  featured   Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  page      String
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  email       String?
+  eventType   String?
+  message     String
+  isRead      Boolean @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model SiteSetting {
+  id             String   @id @default(cuid())
+  businessName   String   @default("")
+  tagline        String   @default("")
+  description    String   @default("")
+  phone          String   @default("")
+  whatsapp       String   @default("")
+  email          String   @default("")
+  address        String   @default("")
+  instagram      String   @default("")
+  facebook       String   @default("")
+  youtube        String   @default("")
+  heroTitle      String   @default("")
+  heroSubtitle   String   @default("")
+  heroButtonText String   @default("")
+  footerText     String   @default("")
+  googleMapsUrl  String   @default("")
+  seoTitle       String   @default("")
+  seoDescription String   @default("")
+  logoUrl        String   @default("")
+  faviconUrl     String   @default("")
+  updatedAt      DateTime @updatedAt
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  publicId  String   @unique
+  url       String
+  secureUrl String
+  width     Int
+  height    Int
+  format    String
+  bytes     Int
+  folder    String   @default("cms")
+  alt       String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  categoryCovers CakeCategory[] @relation("CakeCategoryCover")
+  cakeCovers     Cake[]         @relation("CakeCover")
+  cakeGallery    CakeMedia[]
+  inquiryMedia   InquiryMedia[]
+  pageHeroes     Page[]        @relation("PageHeroMedia")
+  sectionMedia   PageSection[] @relation("SectionMedia")
+  sectionItemMedia PageSectionItem[] @relation("SectionItemMedia")
+
+  @@index([folder])
+  @@index([createdAt])
+}
+
+model Page {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String        @default("")
+  subtitle       String        @default("")
+  heroMediaId    String?
+  heroMedia      Media?        @relation("PageHeroMedia", fields: [heroMediaId], references: [id], onDelete: SetNull)
+  seoTitle       String        @default("")
+  seoDescription String        @default("")
+  published      Boolean       @default(false)
+  displayOrder   Int           @default(0)
+  sections       PageSection[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([published])
+  @@index([displayOrder])
+}
+
+model PageSection {
+  id          String            @id @default(cuid())
+  pageId      String
+  page        Page              @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  type        String
+  title       String            @default("")
+  subtitle    String            @default("")
+  description String            @default("")
+  mediaId     String?
+  media       Media?            @relation("SectionMedia", fields: [mediaId], references: [id], onDelete: SetNull)
+  buttonText  String?
+  buttonUrl   String?
+  displayOrder Int              @default(0)
+  active      Boolean           @default(true)
+  items       PageSectionItem[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([pageId, displayOrder])
+}
+
+model PageSectionItem {
+  id           String      @id @default(cuid())
+  sectionId    String
+  section      PageSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  title        String      @default("")
+  subtitle     String      @default("")
+  description  String      @default("")
+  mediaId      String?
+  media        Media?      @relation("SectionItemMedia", fields: [mediaId], references: [id], onDelete: SetNull)
+  link         String?
+  displayOrder Int         @default(0)
+  active       Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([sectionId, displayOrder])
+}

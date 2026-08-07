@@ -1,0 +1,7 @@
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { ContentService } from './content.service';
+import { CreatePageDto, UpdatePageDto } from './dto/content.dto';
+@ApiTags('Public Content') @Controller('content') export class PublicContentController { constructor(private readonly service: ContentService) {} @Get(':slug') @ApiOperation({ summary: 'Get a published content page' }) get(@Param('slug') slug: string) { return this.service.publicGet(slug); } }
+@ApiTags('Content') @ApiBearerAuth() @UseGuards(JwtAuthGuard) @Controller('content') export class ContentController { constructor(private readonly service: ContentService) {} @Get() @ApiOperation({ summary: 'List content pages' }) list() { return this.service.list(); } @Get('admin/:id') @ApiOperation({ summary: 'Get content page for editing' }) get(@Param('id') id: string) { return this.service.get(id); } @Post() @ApiOperation({ summary: 'Create content page' }) create(@Body() dto: CreatePageDto) { return this.service.create(dto); } @Patch(':id') @ApiOperation({ summary: 'Update page, sections and section items' }) update(@Param('id') id: string, @Body() dto: UpdatePageDto) { return this.service.update(id, dto); } @Delete(':id') @HttpCode(HttpStatus.NO_CONTENT) @ApiOperation({ summary: 'Delete content page' }) remove(@Param('id') id: string) { return this.service.remove(id); } }

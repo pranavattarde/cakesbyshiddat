@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FFF9FB;
+  --surface: #FFFFFF;
+  --primary: #F5B7C5;
+  --primary-hover: #EC9FB4;
+  --secondary: #F8D7DA;
+  --accent: #EADCF8;
+  --border: #F3D9E2;
+  --text: #4A3B45;
+  --muted: #7C6872;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.container-custom {
+  max-width: 1280px;
+  margin: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+}
+
+/* Legacy utility aliases preserve the established layouts while applying the pastel palette. */
+.bg-\[\#fff8f2\], .bg-\[\#fffaf6\], .bg-\[\#fffaf6\]\/75, .bg-\[\#fffaf6\]\/90 { background-color: #FFF9FB; }
+.bg-\[\#d7a88c\], .bg-\[\#d4a27f\], .bg-\[\#25D366\] { background-color: #F5B7C5; }
+.hover\:bg-\[\#c79a7f\]:hover, .hover\:bg-\[\#c99a7d\]:hover, .hover\:bg-\[\#c9987a\]:hover, .hover\:bg-\[\#1ebc59\]:hover { background-color: #EC9FB4; }
+.bg-\[\#3a2d28\], .bg-\[\#2f241f\] { background-color: #4A3B45; }
+.text-\[\#3a2d28\] { color: #4A3B45; }
+.text-\[\#8a7a72\], .text-\[\#b89a89\] { color: #7C6872; }
+.text-\[\#d7a88c\], .text-\[\#d4a27f\] { color: #F5B7C5; }
+.text-\[\#d4af37\] { color: #EADCF8; }
+.text-\[\#25D366\] { color: #F5B7C5; }
+.border-\[\#d7a88c\] { border-color: #F5B7C5; }
+.border-\[\#f3e5dc\], .border-\[\#efe4dc\], .border-\[\#ead8cf\], .border-\[\#ead7ce\], .border-\[\#e9d6cb\], .border-\[\#f1dfd5\], .border-\[\#f0dfd7\] { border-color: #F3D9E2; }
+.hover\:border-\[\#d7a88c\]:hover { border-color: #EC9FB4; }
+.from-\[\#f5e7de\] { --tw-gradient-from: #F8D7DA var(--tw-gradient-from-position); }
+.to-\[\#fffaf6\] { --tw-gradient-to: #FFF9FB var(--tw-gradient-to-position); }
+.bg-\[\#d7a88c\]\/10, .bg-\[\#d7a88c\]\/20 { background-color: rgb(245 183 197 / var(--tw-bg-opacity, 0.2)); }
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid #EADCF8;
+  outline-offset: 3px;
+}

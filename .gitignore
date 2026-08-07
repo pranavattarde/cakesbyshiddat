@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production and generated output
+dist/
+**/dist/
+build/
+**/build/
+dist-ssr/
+coverage/
+**/coverage/
+.nyc_output/
+*.tsbuildinfo
+generated/
+**/generated/
+
+# Local environment files (examples are committed)
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Logs and runtime files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
+*.pid.lock
+*.seed
+report.*.json
+
+# Caches and temporary files
+.cache/
+**/.cache/
+.tmp/
+**/.tmp/
+.temp/
+**/.temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*.local
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Local Codex/agent workspace metadata
+.agents/
+.codex/
+deployment/backups/

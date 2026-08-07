@@ -1,0 +1,14 @@
+import { AnimatePresence, motion } from 'framer-motion';
+import { ImageOff, LoaderCircle, Search, X } from 'lucide-react';
+import { useState } from 'react';
+import { useMedia } from '../hooks/use-media';
+import type { MediaItem } from '../services/media.service';
+import { Button, Input } from './ui';
+
+interface MediaPickerProps { open: boolean; onClose: () => void; onSelect: (media: MediaItem) => void; title?: string; }
+
+export function MediaPicker({ open, onClose, onSelect, title = 'Choose image' }: MediaPickerProps): React.JSX.Element | null {
+  const [search, setSearch] = useState('');
+  const { data, isLoading } = useMedia({ page: 1, limit: 24, search });
+  return <AnimatePresence>{open && <motion.div className="fixed inset-0 z-[60] grid place-items-center bg-[#342630]/40 p-4 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={onClose}><motion.div className="max-h-[85vh] w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl" initial={{ y: 20, scale: 0.98 }} animate={{ y: 0, scale: 1 }} exit={{ y: 20, scale: 0.98 }} onMouseDown={(event) => event.stopPropagation()}><div className="flex items-center justify-between border-b border-rose-100 p-5"><div><h2 className="text-xl font-bold">{title}</h2><p className="text-sm text-[#806c75]">Select an image from the Media Library.</p></div><button onClick={onClose} aria-label="Close media picker" className="rounded-xl p-2 hover:bg-rose-light"><X /></button></div><div className="border-b border-rose-100 p-5"><div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-[#806c75]" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search media" className="pl-9" /></div></div><div className="min-h-64 overflow-y-auto p-5">{isLoading ? <div className="grid min-h-56 place-items-center text-[#806c75]"><LoaderCircle className="animate-spin" /></div> : data?.data.length ? <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">{data.data.map((media) => <button key={media.id} type="button" onClick={() => { onSelect(media); onClose(); }} className="overflow-hidden rounded-2xl border border-rose-100 text-left transition hover:-translate-y-0.5 hover:border-rose hover:shadow-lg"><img src={media.secureUrl} alt={media.alt || 'Media asset'} className="aspect-square w-full object-cover" /><span className="block truncate p-3 text-xs font-medium">{media.alt || media.publicId}</span></button>)}</div> : <div className="grid min-h-56 place-items-center text-center text-[#806c75]"><ImageOff className="mb-2" /><p>No media found.</p></div>}</div><div className="flex justify-end border-t border-rose-100 p-4"><Button type="button" onClick={onClose} className="bg-white text-[#342630] hover:bg-rose-light">Cancel</Button></div></motion.div></motion.div>}</AnimatePresence>;
+}
