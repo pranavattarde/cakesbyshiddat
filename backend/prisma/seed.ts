@@ -804,14 +804,8 @@ async function seedContact(): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  const email = process.env.ADMIN_EMAIL;
-  const password = process.env.ADMIN_PASSWORD;
-
-  if (!email || !password) {
-    throw new Error(
-      'ADMIN_EMAIL and ADMIN_PASSWORD environment variables are required',
-    );
-  }
+  const email = process.env.ADMIN_EMAIL || 'admin@cakesbyshiddat.com';
+  const password = process.env.ADMIN_PASSWORD || 'Admin@123456';
 
   if (
     !(await prisma.user.findFirst({

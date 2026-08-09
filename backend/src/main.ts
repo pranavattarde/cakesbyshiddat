@@ -15,12 +15,13 @@ async function bootstrap() {
   app.use(helmet());
   app.use(compression());
 
+  const rawOrigins = process.env.CORS_ORIGINS ?? '*';
+  const origins = rawOrigins.split(',').map((origin) => origin.trim()).filter(Boolean);
+  const allowAll = origins.includes('*') || rawOrigins === '*';
+
   app.enableCors({
-    origin: (process.env.CORS_ORIGINS ?? 'http://localhost:5173,http://localhost:5174')
-      .split(',')
-      .map((origin) => origin.trim())
-      .filter(Boolean),
-    credentials: false,
+    origin: allowAll ? true : origins,
+    credentials: true,
   });
 
   app.useGlobalPipes(
