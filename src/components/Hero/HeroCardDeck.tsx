@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useSiteContent } from '../../contexts/SiteContentContext';
 import { SmartMedia } from '../common/SmartMedia';
 import { FaArrowRight, FaLayerGroup, FaThLarge } from 'react-icons/fa';
-import { MediaItem } from '../../services/site-content.service';
+import type { MediaItem } from '../../services/site-content.service';
 
 interface ServiceDeckCard {
   id: 'cakes' | 'events' | 'mascots';

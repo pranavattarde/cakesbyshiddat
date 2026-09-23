@@ -7,7 +7,7 @@ import { useSiteContent } from '../../contexts/SiteContentContext';
 import { SmartMedia } from '../../components/common/SmartMedia';
 import { OtherServicesSection } from '../../components/events/OtherServicesSection';
 import { InquiryModal } from '../../components/InquiryModal';
-import { FaCalendarAlt, FaWhatsapp, FaArrowRight, FaStar } from 'react-icons/fa';
+import { FaWhatsapp, FaStar } from 'react-icons/fa';
 import { useSettings } from '../../hooks/useSettings';
 
 const EventsPage: React.FC = () => {

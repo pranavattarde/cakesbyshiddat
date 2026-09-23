@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAdminAuth } from './AdminAuthContext';
 import { useSiteContent } from '../../contexts/SiteContentContext';
 import { api } from '../../services/api';
-import { MediaItem, ServiceCategory, MascotItem, OtherServiceItem } from '../../services/site-content.service';
+import type { MediaItem, ServiceCategory, MascotItem } from '../../services/site-content.service';
 import {
   FaLayerGroup,
   FaBirthdayCake,
@@ -13,9 +13,7 @@ import {
   FaHome,
   FaPlus,
   FaTrash,
-  FaEdit,
   FaCheck,
-  FaTimes,
   FaInstagram,
   FaCloudUploadAlt,
   FaSlidersH,
@@ -302,6 +300,9 @@ export const AdminPanel: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <span className="text-xs font-medium text-[#7d675c] hidden sm:inline">
+              Signed in as {user?.name || 'Admin'}
+            </span>
             <Link
               to="/"
               target="_blank"

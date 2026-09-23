@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { z } from 'zod';
 import { inquiriesService } from '../services/inquiries.service';
-import { FaCalendarAlt, FaTimes, FaCheckCircle, FaWhatsapp } from 'react-icons/fa';
+import { FaTimes, FaCheckCircle, FaWhatsapp } from 'react-icons/fa';
 import { useSettings } from '../hooks/useSettings';
 
 const schema = z.object({
@@ -60,7 +60,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
     const parsed = schema.safeParse(formData);
     if (!parsed.success) {
-      setErrorMsg(parsed.error.errors[0]?.message || 'Please check the required fields');
+      setErrorMsg(parsed.error.issues[0]?.message || 'Please check the required fields');
       return;
     }
 

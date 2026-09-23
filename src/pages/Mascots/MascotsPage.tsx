@@ -5,7 +5,7 @@ import SEO from '../../components/SEO';
 import { useSiteContent } from '../../contexts/SiteContentContext';
 import { SmartMedia } from '../../components/common/SmartMedia';
 import { InquiryModal } from '../../components/InquiryModal';
-import { FaWhatsapp, FaSmile, FaCheck, FaHeart, FaStar, FaShieldAlt } from 'react-icons/fa';
+import { FaWhatsapp, FaSmile, FaHeart, FaStar, FaShieldAlt } from 'react-icons/fa';
 import { useSettings } from '../../hooks/useSettings';
 
 const MascotsPage: React.FC = () => {

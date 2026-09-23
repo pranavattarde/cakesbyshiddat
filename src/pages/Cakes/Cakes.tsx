@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import SEO from '../../components/SEO';
@@ -7,7 +7,7 @@ import { CakeGrid } from '../../components/Cakes/CakeGrid';
 import { useCakeCategories, useCakes } from '../../hooks/use-cakes';
 import { useSiteContent } from '../../contexts/SiteContentContext';
 import { InquiryModal } from '../../components/InquiryModal';
-import { FaCrown, FaStar, FaWhatsapp, FaCalendarCheck, FaSearch } from 'react-icons/fa';
+import { FaCrown, FaWhatsapp, FaSearch } from 'react-icons/fa';
 import { useSettings } from '../../hooks/useSettings';
 
 const Cakes: React.FC = () => {

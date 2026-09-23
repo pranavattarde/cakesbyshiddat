@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { SiteContentData, siteContentService, INITIAL_SITE_CONTENT } from '../services/site-content.service';
+import { type SiteContentData, siteContentService, INITIAL_SITE_CONTENT } from '../services/site-content.service';
 
 interface SiteContentContextType {
   content: SiteContentData;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSiteContent } from '../../contexts/SiteContentContext';
-import { FaSparkles, FaArrowRight, FaMagic } from 'react-icons/fa';
+import { FaArrowRight, FaMagic } from 'react-icons/fa';
 
 interface OtherServicesSectionProps {
   onSelectService: (serviceName: string, isCustom?: boolean) => void;
