@@ -39,12 +39,34 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   });
 
   const login = async (email: string, password: string): Promise<boolean> => {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = password.trim();
+
+    // 1. Direct Environment Variable Authentication (Zero Database needed on Vercel!)
+    const configuredEmail = (import.meta.env.VITE_ADMIN_EMAIL || 'admin@cakesbyshiddat.com').trim().toLowerCase();
+    const configuredPassword = (import.meta.env.VITE_ADMIN_PASSWORD || 'Admin@123456').trim();
+
+    if (cleanEmail === configuredEmail && cleanPassword === configuredPassword) {
+      const sessionToken = 'cbs-env-token-' + Date.now();
+      const adminUser: AdminUser = {
+        id: 'env-admin',
+        name: 'Administrator',
+        email: cleanEmail,
+        role: 'SUPER_ADMIN',
+      };
+      localStorage.setItem(TOKEN_KEY, sessionToken);
+      localStorage.setItem(USER_KEY, JSON.stringify(adminUser));
+      setToken(sessionToken);
+      setUser(adminUser);
+      return true;
+    }
+
+    // 2. Also check if a hosted backend API is configured and responds
     try {
-      // First attempt authenticating with backend API
-      const res = await api.post('/auth/login', { email, password });
+      const res = await api.post('/auth/login', { email: cleanEmail, password: cleanPassword });
       if (res.data?.accessToken) {
         const receivedToken = res.data.accessToken;
-        const receivedUser = res.data.user || { id: 'admin', name: 'Administrator', email, role: 'ADMIN' };
+        const receivedUser = res.data.user || { id: 'admin', name: 'Administrator', email: cleanEmail, role: 'ADMIN' };
         localStorage.setItem(TOKEN_KEY, receivedToken);
         localStorage.setItem(USER_KEY, JSON.stringify(receivedUser));
         setToken(receivedToken);
@@ -52,13 +74,13 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         return true;
       }
     } catch {
-      // Fallback check against configured credentials if backend network is unreachable
+      // 3. Built-in developer/storeowner fallback credentials if Vercel env not yet configured
       if (
-        (email === 'admin@cakesbyshiddat.com' && (password === 'Admin@123456' || password.length >= 6)) ||
-        (email.includes('admin') && password.length >= 6)
+        (cleanEmail === 'admin@cakesbyshiddat.com' && (cleanPassword === 'Admin@123456' || cleanPassword === 'admin123')) ||
+        (cleanEmail === 'pranav@cakesbyshiddat.com' && cleanPassword === 'Admin@123456')
       ) {
-        const fallbackToken = 'cbs-mock-token-' + Date.now();
-        const fallbackUser: AdminUser = { id: 'admin-1', name: 'Administrator', email, role: 'ADMIN' };
+        const fallbackToken = 'cbs-local-token-' + Date.now();
+        const fallbackUser: AdminUser = { id: 'admin-1', name: 'Administrator', email: cleanEmail, role: 'ADMIN' };
         localStorage.setItem(TOKEN_KEY, fallbackToken);
         localStorage.setItem(USER_KEY, JSON.stringify(fallbackUser));
         setToken(fallbackToken);
@@ -66,6 +88,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         return true;
       }
     }
+
     return false;
   };
 

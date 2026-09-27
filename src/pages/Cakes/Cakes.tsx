@@ -9,6 +9,7 @@ import { useSiteContent } from '../../contexts/SiteContentContext';
 import { InquiryModal } from '../../components/InquiryModal';
 import { FaCrown, FaWhatsapp, FaSearch } from 'react-icons/fa';
 import { useSettings } from '../../hooks/useSettings';
+import { SHOW_RUPEE_PRICES } from '../../data/priceCatalogBackup';
 
 const Cakes: React.FC = () => {
   const location = useLocation();
@@ -184,9 +185,13 @@ const Cakes: React.FC = () => {
                     >
                       Book Luxury Cake Consultation
                     </button>
-                    {luxuryCategory.startingPrice && (
+                    {SHOW_RUPEE_PRICES && luxuryCategory.startingPrice ? (
                       <span className="text-sm text-gray-300 font-medium">
                         Starts at <strong className="text-white text-lg">{luxuryCategory.startingPrice}</strong>
+                      </span>
+                    ) : (
+                      <span className="text-xs text-amber-200/90 font-medium tracking-wide">
+                        ✨ Bespoke Multi-Tier Pricing • Custom Quote on Request
                       </span>
                     )}
                   </div>
@@ -309,9 +314,13 @@ const Cakes: React.FC = () => {
                         >
                           Book {cat.title} Consultation
                         </button>
-                        {cat.startingPrice && (
+                        {SHOW_RUPEE_PRICES && cat.startingPrice ? (
                           <span className="text-xs uppercase tracking-wider text-[#8a7a72]">
                             Starting from <strong className="text-sm text-[#3a2d28]">{cat.startingPrice}</strong>
+                          </span>
+                        ) : (
+                          <span className="text-xs text-[#8a7a72] font-medium tracking-wide">
+                            Custom Quote on Request
                           </span>
                         )}
                       </div>

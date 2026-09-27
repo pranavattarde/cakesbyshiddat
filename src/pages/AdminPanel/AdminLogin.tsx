@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAdminAuth } from './AdminAuthContext';
-import { FaLock, FaEnvelope, FaBirthdayCake, FaArrowLeft } from 'react-icons/fa';
+import { FaLock, FaEnvelope, FaBirthdayCake, FaArrowLeft, FaKey } from 'react-icons/fa';
 
 export const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAdminAuth();
 
-  const [email, setEmail] = useState('admin@cakesbyshiddat.com');
+  const defaultEmail = import.meta.env.VITE_ADMIN_EMAIL || 'admin@cakesbyshiddat.com';
+  const [email, setEmail] = useState(defaultEmail);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -29,13 +30,18 @@ export const AdminLogin: React.FC = () => {
       if (ok) {
         navigate('/admin-panel');
       } else {
-        setError('Invalid admin credentials. Please verify your email and password.');
+        setError('Invalid credentials. Check your email and password, or set VITE_ADMIN_EMAIL & VITE_ADMIN_PASSWORD in Vercel.');
       }
     } catch {
       setError('An error occurred during authentication. Please try again.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleUseDefault = () => {
+    setEmail('admin@cakesbyshiddat.com');
+    setPassword('Admin@123456');
   };
 
   return (
@@ -51,7 +57,7 @@ export const AdminLogin: React.FC = () => {
         </Link>
 
         {/* Card */}
-        <div className="rounded-[36px] border border-[#f0dfd7] bg-white/90 backdrop-blur-xl p-8 sm:p-10 shadow-2xl">
+        <div className="rounded-[36px] border border-[#f0dfd7] bg-white/95 backdrop-blur-xl p-8 sm:p-10 shadow-2xl">
           <div className="text-center mb-8">
             <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-[#d7a88c] to-[#c99a7d] text-white flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-[#d7a88c]/30">
               <FaBirthdayCake />
@@ -108,14 +114,30 @@ export const AdminLogin: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-gradient-to-r from-[#d7a88c] to-[#c99a7d] hover:brightness-105 text-white font-medium py-3.5 shadow-lg shadow-[#d7a88c]/25 transition hover:scale-[1.02] disabled:opacity-50 mt-2"
+              className="w-full rounded-full bg-gradient-to-r from-[#d7a88c] to-[#c99a7d] hover:brightness-105 text-white font-medium py-3.5 shadow-lg shadow-[#d7a88c]/25 transition hover:scale-[1.02] disabled:opacity-50 mt-2 cursor-pointer"
             >
               {loading ? 'Authenticating...' : 'Sign In to Content Panel'}
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-[#f2e2d8] text-center text-xs text-[#8a7a72]">
-            <p>Protected area for authorized store managers only.</p>
+          {/* Quick Credential Helper Pill for Zero-Database Mode */}
+          <div className="mt-6 pt-5 border-t border-[#f2e2d8]">
+            <div className="rounded-2xl bg-[#fff8f2] border border-[#f0dcce] p-3 text-center">
+              <span className="text-[11px] font-semibold text-[#8a7a72] block">
+                Zero-Database Mode (Configured via Vercel env)
+              </span>
+              <p className="text-xs text-[#554037] mt-0.5 font-medium">
+                Default: <span className="font-mono text-[11px] text-[#c99a7d]">admin@cakesbyshiddat.com</span> /{' '}
+                <span className="font-mono text-[11px] text-[#c99a7d]">Admin@123456</span>
+              </p>
+              <button
+                type="button"
+                onClick={handleUseDefault}
+                className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#d7a88c] hover:underline mt-1.5 cursor-pointer"
+              >
+                <FaKey className="text-[9px]" /> Auto-fill default credentials
+              </button>
+            </div>
           </div>
         </div>
       </div>

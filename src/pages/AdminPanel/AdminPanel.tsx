@@ -88,7 +88,7 @@ export const AdminPanel: React.FC = () => {
     subtitle: '',
     description: '',
     coverImage: '',
-    startingPrice: '₹1,500',
+    startingPrice: '',
   });
 
   const handleAddCakeCategory = (e: React.FormEvent) => {
@@ -103,7 +103,7 @@ export const AdminPanel: React.FC = () => {
       subtitle: newCakeCat.subtitle || '',
       description: newCakeCat.description || '',
       coverImage: newCakeCat.coverImage || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587',
-      startingPrice: newCakeCat.startingPrice || '₹1,500',
+      startingPrice: newCakeCat.startingPrice || '',
       features: ['Eggless options available', 'Custom theme design', 'Fresh artisanal ingredients'],
       media: [],
       displayOrder: content.cakeCategories.length + 1,
@@ -113,7 +113,7 @@ export const AdminPanel: React.FC = () => {
     const updated = { ...content };
     updated.cakeCategories.push(newCategory);
     updateContent(updated);
-    setNewCakeCat({ title: '', subtitle: '', description: '', coverImage: '', startingPrice: '₹1,500' });
+    setNewCakeCat({ title: '', subtitle: '', description: '', coverImage: '', startingPrice: '' });
     notify(`Category "${newCategory.title}" created successfully!`);
   };
 
@@ -658,7 +658,7 @@ export const AdminPanel: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        placeholder="₹2,000"
+                        placeholder="e.g. ₹2,000 (leave blank for Custom Quote)"
                         value={newCakeCat.startingPrice}
                         onChange={(e) => setNewCakeCat({ ...newCakeCat, startingPrice: e.target.value })}
                         className="w-full rounded-2xl border border-[#eddcd2] p-3 text-sm text-[#3a2d28] bg-white"
@@ -712,7 +712,7 @@ export const AdminPanel: React.FC = () => {
                         </div>
                         <p className="text-xs text-[#8a7a72] mt-0.5 line-clamp-2">{cat.description}</p>
                         <span className="text-xs font-semibold text-[#c99a7d] mt-2 block">
-                          Starts at {cat.startingPrice}
+                          {cat.startingPrice ? `Starts at ${cat.startingPrice}` : 'Price on Request (Custom Quote)'}
                         </span>
                       </div>
                     </div>
