@@ -99,7 +99,7 @@ const MascotsPage: React.FC = () => {
                 >
                   <SmartMedia
                     url={reel.url}
-                    type="instagram"
+                    type={reel.type}
                     title={reel.title}
                     aspectRatio="aspect-[9/14]"
                     className="w-full h-full"
