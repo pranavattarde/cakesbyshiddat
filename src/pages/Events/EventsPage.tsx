@@ -53,28 +53,28 @@ const EventsPage: React.FC = () => {
       />
       <Navbar />
 
-      <main className="bg-[#fffdfa] pt-36 sm:pt-40">
+      <main className="bg-[#fffdfa] pt-28 sm:pt-36 lg:pt-40">
         {/* Hero Section */}
-        <section className="bg-gradient-to-b from-[#fff5ee] via-[#fff9f4] to-[#fffdfa] py-16 sm:py-20 border-b border-[#f0dfd7]">
+        <section className="bg-gradient-to-b from-[#fff5ee] via-[#fff9f4] to-[#fffdfa] py-12 sm:py-16 lg:py-20 border-b border-[#f0dfd7]">
           <div className="container-custom text-center max-w-4xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-xs uppercase tracking-[4px] font-bold text-[#c99a7d] mb-4">
+            <span className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-[11px] sm:text-xs uppercase tracking-[3px] sm:tracking-[4px] font-bold text-[#c99a7d] mb-3 sm:mb-4">
               <span>🎉</span>
               <span>Celebration Architecture</span>
             </span>
             <h1
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold text-[#3a2d28] tracking-tight leading-tight"
+              className="text-3xl sm:text-5xl lg:text-7xl font-bold text-[#3a2d28] tracking-tight leading-tight"
               style={{ fontFamily: 'Playfair Display' }}
             >
               Celebrations Styled to Perfection
             </h1>
-            <p className="mt-6 text-base sm:text-lg text-[#8a7a72] leading-relaxed max-w-2xl mx-auto">
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg text-[#8a7a72] leading-relaxed max-w-2xl mx-auto">
               Transforming milestones into breathtaking experiences. From dream weddings and magical birthdays to intimate anniversaries and vibrant kid celebrations.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
               <button
                 onClick={() => openConsultation('General Event Consultation')}
-                className="rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-8 py-3.5 font-medium shadow-md transition hover:scale-105"
+                className="w-full sm:w-auto rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-7 sm:px-8 py-3.5 font-medium text-sm sm:text-base shadow-md transition hover:scale-105 cursor-pointer text-center"
               >
                 Plan Your Event With Us
               </button>
@@ -82,7 +82,7 @@ const EventsPage: React.FC = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-emerald-500 text-emerald-700 hover:bg-emerald-50 px-6 py-3.5 text-sm font-medium transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500 text-emerald-700 hover:bg-emerald-50 px-6 py-3.5 text-sm font-medium transition"
               >
                 <FaWhatsapp className="text-xl text-[#25D366]" />
                 <span>Chat on WhatsApp</span>
@@ -90,19 +90,19 @@ const EventsPage: React.FC = () => {
             </div>
 
             {/* Quick Category Anchor Bar */}
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            <div className="mt-10 sm:mt-12 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               {categories.map((cat) => (
                 <a
                   key={cat.id}
                   href={`#${cat.slug}`}
-                  className="px-4 py-2 rounded-full text-xs font-semibold bg-white hover:bg-[#fceee5] border border-[#ecd7cb] text-[#3a2d28] hover:text-[#d7a88c] shadow-sm transition"
+                  className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold bg-white hover:bg-[#fceee5] border border-[#ecd7cb] text-[#3a2d28] hover:text-[#d7a88c] shadow-sm transition"
                 >
                   {cat.title}
                 </a>
               ))}
               <a
                 href="#other-services"
-                className="px-4 py-2 rounded-full text-xs font-semibold bg-[#3a2630] text-white hover:bg-[#d7a88c] shadow-sm transition"
+                className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold bg-[#3a2630] text-white hover:bg-[#d7a88c] shadow-sm transition"
               >
                 + Specialized Services
               </a>
@@ -111,27 +111,27 @@ const EventsPage: React.FC = () => {
         </section>
 
         {/* 6 Core Event Category Showcases */}
-        <section className="py-20 sm:py-28 bg-[#fffaf6]">
+        <section className="py-14 sm:py-20 lg:py-28 bg-[#fffaf6]">
           <div className="container-custom">
-            <div className="text-center mb-16 sm:mb-20">
-              <span className="text-xs uppercase tracking-[4px] text-[#c99a7d] font-bold">Comprehensive Experiences</span>
+            <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+              <span className="text-xs uppercase tracking-[3px] sm:tracking-[4px] text-[#c99a7d] font-bold">Comprehensive Experiences</span>
               <h2
-                className="text-4xl sm:text-5xl text-[#3a2d28] font-bold mt-2"
+                className="text-3xl sm:text-5xl lg:text-6xl text-[#3a2d28] font-bold mt-2"
                 style={{ fontFamily: 'Playfair Display' }}
               >
                 Specialized Event Categories
               </h2>
-              <p className="text-[#8a7a72] mt-3 max-w-xl mx-auto">
+              <p className="text-xs sm:text-sm text-[#8a7a72] mt-2 sm:mt-3 max-w-xl mx-auto">
                 Explore our signature setups with customized themes, stage styling, imported florals, and coordinated experiences.
               </p>
             </div>
 
-            <div className="space-y-24">
+            <div className="space-y-14 sm:space-y-20 lg:space-y-24">
               {categories.map((cat, idx) => (
                 <div
                   key={cat.id}
                   id={cat.slug}
-                  className={`scroll-mt-28 rounded-[44px] border border-[#f0dfd7] p-8 sm:p-14 transition-all shadow-sm ${
+                  className={`scroll-mt-28 rounded-[28px] sm:rounded-[44px] border border-[#f0dfd7] p-5 sm:p-10 lg:p-14 transition-all shadow-sm ${
                     idx % 2 === 0 ? 'bg-[#fffdfa]' : 'bg-[#fff6ef]/65'
                   }`}
                 >

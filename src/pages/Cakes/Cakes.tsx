@@ -80,28 +80,28 @@ const Cakes: React.FC = () => {
       />
       <Navbar />
 
-      <main className="bg-[#fffdfa] pt-36 sm:pt-40">
+      <main className="bg-[#fffdfa] pt-28 sm:pt-36 lg:pt-40">
         {/* Top Hero Banner */}
-        <section className="bg-gradient-to-b from-[#fff5ee] via-[#fff9f4] to-[#fffdfa] py-16 sm:py-20 border-b border-[#f0dfd7]">
+        <section className="bg-gradient-to-b from-[#fff5ee] via-[#fff9f4] to-[#fffdfa] py-12 sm:py-16 lg:py-20 border-b border-[#f0dfd7]">
           <div className="container-custom text-center max-w-4xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-xs uppercase tracking-[4px] font-bold text-[#c99a7d] mb-4">
+            <span className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-[11px] sm:text-xs uppercase tracking-[3px] sm:tracking-[4px] font-bold text-[#c99a7d] mb-3 sm:mb-4">
               <span>🎂</span>
               <span>The Artisanal Bakehouse</span>
             </span>
             <h1
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold text-[#3a2d28] tracking-tight leading-tight"
+              className="text-3xl sm:text-5xl lg:text-7xl font-bold text-[#3a2d28] tracking-tight leading-tight"
               style={{ fontFamily: 'Playfair Display' }}
             >
               Cakes of Distinction & Desire
             </h1>
-            <p className="mt-6 text-base sm:text-lg text-[#8a7a72] leading-relaxed max-w-2xl mx-auto">
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg text-[#8a7a72] leading-relaxed max-w-2xl mx-auto">
               Every cake is an edible masterpiece handcrafted with premium butter, Belgian chocolates, organic essences, and heartfelt artistry.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
               <button
                 onClick={() => openConsultation('Bespoke Custom Cake')}
-                className="rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-8 py-3.5 font-medium shadow-md transition hover:scale-105"
+                className="w-full sm:w-auto rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-7 sm:px-8 py-3.5 font-medium text-sm sm:text-base shadow-md transition hover:scale-105 cursor-pointer"
               >
                 Book Custom Cake Consultation
               </button>
@@ -109,14 +109,12 @@ const Cakes: React.FC = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-emerald-500 text-emerald-700 hover:bg-emerald-50 px-6 py-3.5 text-sm font-medium transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500 text-emerald-700 hover:bg-emerald-50 px-6 py-3.5 text-sm font-medium transition"
               >
                 <FaWhatsapp className="text-xl text-[#25D366]" />
                 <span>Instant Order on WhatsApp</span>
               </a>
             </div>
-
-            {/* Quick Category Anchor Bar */}
             <div className="mt-12 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               {categories.map((cat) => (
                 <a
@@ -259,13 +257,13 @@ const Cakes: React.FC = () => {
                 <div
                   key={cat.id}
                   id={cat.slug}
-                  className={`scroll-mt-28 rounded-[40px] border border-[#f0dfd7] p-8 sm:p-12 transition-all ${
+                  className={`scroll-mt-28 rounded-[28px] sm:rounded-[40px] border border-[#f0dfd7] p-5 sm:p-8 lg:p-12 transition-all ${
                     idx % 2 === 0 ? 'bg-[#fffdfa]' : 'bg-[#fff5ee]/60'
                   }`}
                 >
-                  <div className="grid lg:grid-cols-12 gap-8 items-center">
+                  <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 items-center">
                     <div className={`lg:col-span-5 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                      <div className="aspect-[4/3] rounded-[32px] overflow-hidden shadow-lg border border-[#eedcd2]">
+                      <div className="aspect-[4/3] rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-lg border border-[#eedcd2]">
                         <img
                           src={cat.coverImage}
                           alt={cat.title}
@@ -276,30 +274,30 @@ const Cakes: React.FC = () => {
                     </div>
 
                     <div className={`lg:col-span-7 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <span className="text-xs uppercase tracking-[3px] text-[#d7a88c] font-bold">
+                      <span className="text-[11px] sm:text-xs uppercase tracking-[2.5px] sm:tracking-[3px] text-[#d7a88c] font-bold">
                         {cat.badge || 'Signature Style'}
                       </span>
                       <h3
-                        className="text-3xl sm:text-4xl text-[#3a2d28] font-bold mt-1"
+                        className="text-2xl sm:text-3xl lg:text-4xl text-[#3a2d28] font-bold mt-1"
                         style={{ fontFamily: 'Playfair Display' }}
                       >
                         {cat.title}
                       </h3>
                       {cat.subtitle && (
-                        <p className="text-sm font-semibold text-[#8a7a72] mt-1">
+                        <p className="text-xs sm:text-sm font-semibold text-[#8a7a72] mt-1">
                           {cat.subtitle}
                         </p>
                       )}
-                      <p className="mt-4 text-[#8a7a72] leading-relaxed text-base">
+                      <p className="mt-3 sm:mt-4 text-[#8a7a72] leading-relaxed text-sm sm:text-base">
                         {cat.description}
                       </p>
 
                       {cat.features && (
-                        <div className="mt-6 flex flex-wrap gap-2">
+                        <div className="mt-4 sm:mt-6 flex flex-wrap gap-2">
                           {cat.features.map((feat, fIdx) => (
                             <span
                               key={fIdx}
-                              className="px-3 py-1 rounded-full bg-[#fceee5] border border-[#ebd6ca] text-xs text-[#523d34] font-medium"
+                              className="px-3 py-1 rounded-full bg-[#fceee5] border border-[#ebd6ca] text-[11px] sm:text-xs text-[#523d34] font-medium"
                             >
                               ✓ {feat}
                             </span>
@@ -307,10 +305,10 @@ const Cakes: React.FC = () => {
                         </div>
                       )}
 
-                      <div className="mt-8 pt-6 border-t border-[#ebd8cd] flex flex-wrap items-center gap-4">
+                      <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#ebd8cd] flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                         <button
                           onClick={() => openConsultation(cat.title)}
-                          className="rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-7 py-3 font-medium text-sm shadow-md transition hover:scale-105"
+                          className="w-full sm:w-auto rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-7 py-3 font-medium text-sm shadow-md transition hover:scale-105 cursor-pointer text-center"
                         >
                           Book {cat.title} Consultation
                         </button>
@@ -333,25 +331,25 @@ const Cakes: React.FC = () => {
         </section>
 
         {/* LIVE CAKE BROWSER & SEARCH */}
-        <section className="py-20 bg-gradient-to-b from-[#fffaf6] to-[#fff5ee] border-t border-[#f0dfd7]">
+        <section className="py-14 sm:py-20 bg-gradient-to-b from-[#fffaf6] to-[#fff5ee] border-t border-[#f0dfd7]">
           <div className="container-custom">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
               <div>
-                <span className="text-xs uppercase tracking-[4px] text-[#c99a7d] font-bold">Live Inventory</span>
+                <span className="text-xs uppercase tracking-[3px] sm:tracking-[4px] text-[#c99a7d] font-bold">Live Inventory</span>
                 <h2
-                  className="text-3xl sm:text-4xl font-bold text-[#3a2d28] mt-1"
+                  className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#3a2d28] mt-1"
                   style={{ fontFamily: 'Playfair Display' }}
                 >
                   Browse Available Cakes
                 </h2>
-                <p className="text-sm text-[#8a7a72] mt-1">
+                <p className="text-xs sm:text-sm text-[#8a7a72] mt-1">
                   Search flavors, browse active creations, and place orders directly.
                 </p>
               </div>
 
-              {/* Filters */}
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="relative">
+              {/* Filters - Stacked on Mobile, Inline on Desktop */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full md:w-auto">
+                <div className="relative w-full">
                   <FaSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
                   <input
                     value={search}
@@ -360,7 +358,7 @@ const Cakes: React.FC = () => {
                       setPage(1);
                     }}
                     placeholder="Search cakes, flavors..."
-                    className="pl-9 pr-4 py-2.5 rounded-full border border-[#eadde1] bg-white text-sm text-[#3a2d28] focus:outline-none focus:border-[#d7a88c]"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-full border border-[#eadde1] bg-white text-xs sm:text-sm text-[#3a2d28] focus:outline-none focus:border-[#d7a88c]"
                   />
                 </div>
 
@@ -370,7 +368,7 @@ const Cakes: React.FC = () => {
                     setSelectedCategorySlug(e.target.value);
                     setPage(1);
                   }}
-                  className="px-4 py-2.5 rounded-full border border-[#eadde1] bg-white text-sm text-[#3a2d28] focus:outline-none focus:border-[#d7a88c]"
+                  className="w-full px-4 py-2.5 rounded-full border border-[#eadde1] bg-white text-xs sm:text-sm text-[#3a2d28] focus:outline-none focus:border-[#d7a88c]"
                 >
                   <option value="">All Categories</option>
                   {categoriesQuery.data?.map((item) => (
@@ -383,7 +381,7 @@ const Cakes: React.FC = () => {
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value as typeof sort)}
-                  className="px-4 py-2.5 rounded-full border border-[#eadde1] bg-white text-sm text-[#3a2d28] focus:outline-none focus:border-[#d7a88c]"
+                  className="w-full px-4 py-2.5 rounded-full border border-[#eadde1] bg-white text-xs sm:text-sm text-[#3a2d28] focus:outline-none focus:border-[#d7a88c]"
                 >
                   <option value="displayOrder">Featured Order</option>
                   <option value="createdAt">Newest Additions</option>
@@ -394,13 +392,13 @@ const Cakes: React.FC = () => {
 
             {/* Grid */}
             {cakesQuery.isLoading ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {[1, 2, 3, 4, 5, 6].map((item) => (
-                  <div key={item} className="aspect-[4/5] animate-pulse rounded-3xl bg-[#f7ebe3]" />
+                  <div key={item} className="aspect-[4/3] animate-pulse rounded-3xl bg-[#f7ebe3]" />
                 ))}
               </div>
             ) : cakesQuery.isError ? (
-              <div className="text-center py-12 rounded-3xl bg-white border border-[#f0dfd7] p-8">
+              <div className="text-center py-12 rounded-3xl bg-white border border-[#f0dfd7] p-8 max-w-lg mx-auto">
                 <p className="text-[#8a7a72]">Unable to load live catalog at the moment.</p>
                 <button
                   onClick={() => void cakesQuery.refetch()}

@@ -35,30 +35,30 @@ const MascotsPage: React.FC = () => {
       />
       <Navbar />
 
-      <main className="bg-[#fffdfa] pt-36 sm:pt-40">
+      <main className="bg-[#fffdfa] pt-28 sm:pt-36 lg:pt-40">
         {/* Hero Section */}
-        <section className="bg-gradient-to-b from-[#fff5ee] via-[#fff9f4] to-[#fffdfa] py-16 sm:py-20 border-b border-[#f0dfd7]">
+        <section className="bg-gradient-to-b from-[#fff5ee] via-[#fff9f4] to-[#fffdfa] py-12 sm:py-16 lg:py-20 border-b border-[#f0dfd7]">
           <div className="container-custom text-center max-w-4xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-xs uppercase tracking-[4px] font-bold text-[#c99a7d] mb-4">
+            <span className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-[11px] sm:text-xs uppercase tracking-[3px] sm:tracking-[4px] font-bold text-[#c99a7d] mb-3 sm:mb-4">
               <span>🧸</span>
               <span>Magical Moments For Kids</span>
             </span>
 
             <h1
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold text-[#3a2d28] tracking-tight leading-tight"
+              className="text-3xl sm:text-5xl lg:text-7xl font-bold text-[#3a2d28] tracking-tight leading-tight"
               style={{ fontFamily: 'Playfair Display' }}
             >
               Joyful Mascots & Live Magic
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-[#8a7a72] leading-relaxed max-w-2xl mx-auto">
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg text-[#8a7a72] leading-relaxed max-w-2xl mx-auto">
               Bring your child’s favourite characters to life! Our professional mascot performers create viral dance entries, photo memories, and heartwarming hugs.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
               <button
                 onClick={() => openConsultation('Mascot Package Booking')}
-                className="rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-8 py-3.5 font-medium shadow-md transition hover:scale-105"
+                className="w-full sm:w-auto rounded-full bg-[#d7a88c] hover:bg-[#c99a7d] text-white px-7 sm:px-8 py-3.5 font-medium text-sm sm:text-base shadow-md transition hover:scale-105 cursor-pointer text-center"
               >
                 Book Mascot For Party
               </button>
@@ -66,7 +66,7 @@ const MascotsPage: React.FC = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-emerald-500 text-emerald-700 hover:bg-emerald-50 px-6 py-3.5 text-sm font-medium transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500 text-emerald-700 hover:bg-emerald-50 px-6 py-3.5 text-sm font-medium transition"
               >
                 <FaWhatsapp className="text-xl text-[#25D366]" />
                 <span>Instant WhatsApp Inquiry</span>
@@ -76,26 +76,26 @@ const MascotsPage: React.FC = () => {
         </section>
 
         {/* VIRAL REELS SHOWCASE SECTION */}
-        <section className="py-20 sm:py-28 bg-[#fffaf6]">
+        <section className="py-14 sm:py-20 lg:py-28 bg-[#fffaf6]">
           <div className="container-custom">
-            <div className="text-center mb-16">
-              <span className="text-xs uppercase tracking-[4px] text-[#c99a7d] font-bold">Watch The Joy</span>
+            <div className="text-center mb-12 sm:mb-16">
+              <span className="text-xs uppercase tracking-[3px] sm:tracking-[4px] text-[#c99a7d] font-bold">Watch The Joy</span>
               <h2
-                className="text-4xl sm:text-5xl text-[#3a2d28] font-bold mt-2"
+                className="text-3xl sm:text-5xl lg:text-6xl text-[#3a2d28] font-bold mt-2"
                 style={{ fontFamily: 'Playfair Display' }}
               >
                 Live Mascot Reels & Energy
               </h2>
-              <p className="text-[#8a7a72] mt-3 max-w-xl mx-auto">
+              <p className="text-xs sm:text-sm text-[#8a7a72] mt-2 sm:mt-3 max-w-xl mx-auto">
                 See our mascots in action dancing, meeting children, and leading unforgettable birthday entrances.
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {heroReels.map((reel) => (
                 <div
                   key={reel.id}
-                  className="rounded-[36px] overflow-hidden border border-[#eedcd2] shadow-xl bg-[#241920]"
+                  className="rounded-[28px] sm:rounded-[36px] overflow-hidden border border-[#eedcd2] shadow-xl bg-[#241920]"
                 >
                   <SmartMedia
                     url={reel.url}
@@ -104,13 +104,13 @@ const MascotsPage: React.FC = () => {
                     aspectRatio="aspect-[9/14]"
                     className="w-full h-full"
                   />
-                  <div className="p-5 bg-[#fffaf6] border-t border-[#f0dfd7]">
-                    <h4 className="text-base font-bold text-[#3a2d28]" style={{ fontFamily: 'Playfair Display' }}>
+                  <div className="p-4 sm:p-5 bg-[#fffaf6] border-t border-[#f0dfd7]">
+                    <h4 className="text-sm sm:text-base font-bold text-[#3a2d28]" style={{ fontFamily: 'Playfair Display' }}>
                       {reel.title}
                     </h4>
                     <button
                       onClick={() => openConsultation(reel.title)}
-                      className="mt-3 text-xs uppercase tracking-wider text-[#d7a88c] hover:text-[#b88566] font-bold flex items-center gap-1.5"
+                      className="mt-2.5 sm:mt-3 text-xs uppercase tracking-wider text-[#d7a88c] hover:text-[#b88566] font-bold flex items-center gap-1.5 cursor-pointer"
                     >
                       Book this mascot act →
                     </button>
@@ -122,22 +122,22 @@ const MascotsPage: React.FC = () => {
         </section>
 
         {/* DETAILED MASCOT CHARACTERS & PACKAGES */}
-        <section className="py-20 sm:py-28 bg-[#fffdfa] border-t border-[#f0dfd7]">
+        <section className="py-14 sm:py-20 lg:py-28 bg-[#fffdfa] border-t border-[#f0dfd7]">
           <div className="container-custom">
-            <div className="text-center mb-16 sm:mb-20">
-              <span className="text-xs uppercase tracking-[4px] text-[#c99a7d] font-bold">Character Options</span>
+            <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+              <span className="text-xs uppercase tracking-[3px] sm:tracking-[4px] text-[#c99a7d] font-bold">Character Options</span>
               <h2
-                className="text-4xl sm:text-5xl text-[#3a2d28] font-bold mt-2"
+                className="text-3xl sm:text-5xl lg:text-6xl text-[#3a2d28] font-bold mt-2"
                 style={{ fontFamily: 'Playfair Display' }}
               >
                 Meet Our Mascot Friends
               </h2>
-              <p className="text-[#8a7a72] mt-3 max-w-xl mx-auto">
+              <p className="text-xs sm:text-sm text-[#8a7a72] mt-2 sm:mt-3 max-w-xl mx-auto">
                 Handcrafted premium costumes with warm, engaging performers tailored for every celebration theme.
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-8 lg:gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
               {mascots.map((mascot) => (
                 <div
                   key={mascot.id}

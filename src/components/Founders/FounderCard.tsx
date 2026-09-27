@@ -10,18 +10,18 @@ const FounderCard = ({
   image,
 }: FounderCardProps) => {
   return (
-    <div className="bg-white rounded-[32px] overflow-hidden shadow-lg">
+    <div className="bg-white rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-lg border border-[#f0dfd7]">
       <img
         src={image}
         alt={name}
         loading="lazy"
         decoding="async"
-        className="h-[400px] w-full object-cover"
+        className="h-72 sm:h-80 md:h-[380px] lg:h-[400px] w-full object-cover"
       />
 
-      <div className="p-8 text-center">
+      <div className="p-6 sm:p-8 text-center">
         <h3
-          className="text-3xl text-[#3a2d28]"
+          className="text-2xl sm:text-3xl font-bold text-[#3a2d28]"
           style={{
             fontFamily: "Playfair Display",
           }}
@@ -29,11 +29,12 @@ const FounderCard = ({
           {name}
         </h3>
 
-        <p className="mt-2 text-[#d7a88c]">
+        <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-[#d7a88c] font-medium">
           {role}
         </p>
       </div>
     </div>
   );
 };
+
 export default FounderCard;

@@ -23,31 +23,31 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({ onSe
   };
 
   return (
-    <section id="other-services" className="py-24 sm:py-32 bg-[#fffdfa] border-t border-[#f0dfd7]">
+    <section id="other-services" className="py-16 sm:py-24 lg:py-32 bg-[#fffdfa] border-t border-[#f0dfd7]">
       <div className="container-custom">
         {/* Header */}
-        <div className="text-center mb-16 sm:mb-20 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-xs uppercase tracking-[3px] font-bold text-[#c99a7d] mb-3">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20 max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#fdeee4] border border-[#ecd8cc] text-[11px] sm:text-xs uppercase tracking-[3px] font-bold text-[#c99a7d] mb-3">
             <span>✨</span>
             <span>Complete Celebration Management</span>
           </span>
           <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#3a2d28]"
+            className="text-3xl sm:text-5xl lg:text-6xl font-bold text-[#3a2d28]"
             style={{ fontFamily: 'Playfair Display' }}
           >
             Add-On & Specialized Services
           </h2>
-          <p className="text-[#8a7a72] mt-4 text-base sm:text-lg leading-relaxed">
+          <p className="text-[#8a7a72] mt-3 sm:mt-4 text-sm sm:text-base lg:text-lg leading-relaxed">
             Elevate your celebration with curated entertainment, master emcees, dramatic special effects, and personalized favors.
           </p>
         </div>
 
         {/* 8 Specialized Service Cards Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 sm:gap-7">
           {standardServices.map((service) => (
             <div
               key={service.id}
-              className="group flex flex-col justify-between bg-[#fffaf6] rounded-[32px] overflow-hidden border border-[#edd7cb] shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5"
+              className="group flex flex-col justify-between bg-[#fffaf6] rounded-[28px] sm:rounded-[32px] overflow-hidden border border-[#edd7cb] shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5"
             >
               <div>
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -62,9 +62,9 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({ onSe
                   </div>
                 </div>
 
-                <div className="p-6">
+                <div className="p-5 sm:p-6">
                   <h3
-                    className="text-xl font-bold text-[#3a2d28] group-hover:text-[#d7a88c] transition-colors"
+                    className="text-lg sm:text-xl font-bold text-[#3a2d28] group-hover:text-[#d7a88c] transition-colors"
                     style={{ fontFamily: 'Playfair Display' }}
                   >
                     {service.title}
@@ -86,10 +86,10 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({ onSe
                 </div>
               </div>
 
-              <div className="p-6 pt-0">
+              <div className="p-5 sm:p-6 pt-0">
                 <button
                   onClick={() => onSelectService(service.title, false)}
-                  className="w-full flex items-center justify-center gap-2 rounded-full bg-[#fdeee4] hover:bg-[#d7a88c] text-[#523d34] hover:text-white py-2.5 px-4 text-xs font-semibold transition"
+                  className="w-full flex items-center justify-center gap-2 rounded-full bg-[#fdeee4] hover:bg-[#d7a88c] text-[#523d34] hover:text-white py-2.5 px-4 text-xs font-semibold transition cursor-pointer"
                 >
                   <span>Book {service.title}</span>
                   <FaArrowRight className="text-[10px]" />
@@ -100,10 +100,10 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({ onSe
         </div>
 
         {/* CUSTOM SERVICE CALLOUT CARD */}
-        <div className="mt-14 sm:mt-16 rounded-[40px] bg-gradient-to-r from-[#3a2630] via-[#2f1f28] to-[#25181f] text-white p-8 sm:p-14 relative overflow-hidden shadow-2xl border border-white/10">
+        <div className="mt-12 sm:mt-16 rounded-[28px] sm:rounded-[40px] bg-gradient-to-r from-[#3a2630] via-[#2f1f28] to-[#25181f] text-white p-6 sm:p-10 lg:p-14 relative overflow-hidden shadow-2xl border border-white/10">
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#d7a88c]/15 blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+          <div className="relative z-10 grid lg:grid-cols-12 gap-6 sm:gap-8 items-center">
             <div className="lg:col-span-8">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-[3px] text-[#e8be99] mb-3">
                 <FaMagic className="text-amber-400" />
