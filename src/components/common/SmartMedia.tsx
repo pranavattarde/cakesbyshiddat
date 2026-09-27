@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaYoutube, FaPlay } from 'react-icons/fa';
 
 export interface SmartMediaProps {
   url: string;
@@ -9,6 +9,7 @@ export interface SmartMediaProps {
   autoPlay?: boolean;
   onEnded?: () => void;
   aspectRatio?: string;
+  poster?: string;
 }
 
 export function detectMediaType(url: string, explicitType?: string): 'image' | 'video' | 'instagram' | 'youtube' {
@@ -17,7 +18,7 @@ export function detectMediaType(url: string, explicitType?: string): 'image' | '
   }
   if (/instagram\.com\/(reel|p|tv)\/([^/?#&]+)/i.test(url)) return 'instagram';
   if (/youtube\.com|youtu\.be/i.test(url)) return 'youtube';
-  if (/\.(mp4|webm|ogg|mov)$/i.test(url) || /cloudinary\.com\/.*\/video\/upload/i.test(url)) return 'video';
+  if (/\.(mp4|webm|ogg|mov)($|\?)/i.test(url) || /cloudinary\.com\/.*\/video\/upload/i.test(url) || url.startsWith('blob:') || url.startsWith('data:video/')) return 'video';
   return 'image';
 }
 
@@ -39,27 +40,45 @@ export const SmartMedia: React.FC<SmartMediaProps> = ({
   autoPlay = true,
   onEnded,
   aspectRatio = 'aspect-[4/5]',
+  poster,
 }) => {
   const mediaType = detectMediaType(url, type);
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setHasError(false);
     setIsLoaded(false);
+    setIsPlaying(false);
   }, [url]);
 
   // Video playback control
   useEffect(() => {
     if (mediaType === 'video' && videoRef.current) {
       if (autoPlay) {
-        videoRef.current.play().catch(() => {
-          // Browser prevented autoplay
-        });
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsPlaying(true))
+            .catch(() => {
+              // Browser prevented unmuted autoplay
+              setIsPlaying(false);
+            });
+        }
       }
     }
   }, [url, mediaType, autoPlay]);
+
+  const handleManualPlay = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
+    }
+  };
 
   if (hasError || !url) {
     return (
@@ -98,7 +117,6 @@ export const SmartMedia: React.FC<SmartMediaProps> = ({
           onError={() => setHasError(true)}
           onLoad={() => setIsLoaded(true)}
         />
-        {/* Fallback button if iframe fails or is restricted */}
         <a
           href={url}
           target="_blank"
@@ -139,25 +157,58 @@ export const SmartMedia: React.FC<SmartMediaProps> = ({
     );
   }
 
-  // HTML5 / Cloudinary Video
+  // Local / HTML5 / Cloudinary Video with proper formatting & placeholder
   if (mediaType === 'video') {
     return (
-      <div className={`relative overflow-hidden bg-black ${aspectRatio} ${className}`}>
+      <div className={`relative overflow-hidden bg-[#1e1319] group/video ${aspectRatio} ${className}`}>
+        {/* Loading shimmer placeholder */}
+        {!isLoaded && (
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#291c23] animate-pulse">
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/40 mb-2">
+              🎬
+            </div>
+            <span className="text-xs uppercase tracking-widest text-[#d7a88c]/70 font-semibold">
+              Loading Reel...
+            </span>
+          </div>
+        )}
+
         <video
           ref={videoRef}
           src={url}
+          poster={poster}
           autoPlay={autoPlay}
           muted
           playsInline
+          loop={!onEnded}
+          preload="auto"
+          onLoadedData={() => setIsLoaded(true)}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
           onEnded={onEnded}
           onError={() => setHasError(true)}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-opacity duration-500 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
+
+        {/* Play indicator overlay if autoplay was paused */}
+        {isLoaded && !isPlaying && (
+          <button
+            onClick={handleManualPlay}
+            className="absolute inset-0 z-20 flex items-center justify-center bg-black/30 hover:bg-black/40 transition cursor-pointer"
+            aria-label="Play video"
+          >
+            <div className="w-14 h-14 rounded-full bg-white/90 text-[#3a2d28] shadow-2xl flex items-center justify-center pl-1 hover:scale-110 transition-transform">
+              <FaPlay className="text-lg text-[#d7a88c]" />
+            </div>
+          </button>
+        )}
       </div>
     );
   }
 
-  // Standard Image
+  // Standard Image with loading skeleton placeholder
   return (
     <div className={`relative overflow-hidden ${aspectRatio} ${className}`}>
       <img
@@ -175,3 +226,5 @@ export const SmartMedia: React.FC<SmartMediaProps> = ({
     </div>
   );
 };
+
+export default SmartMedia;
